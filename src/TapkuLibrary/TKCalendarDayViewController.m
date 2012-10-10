@@ -35,6 +35,15 @@
 @implementation TKCalendarDayViewController
 @synthesize calendarDayTimelineView;
 
+
+- (id)initWithDate:(NSDate *)date {
+    self = [super init];
+    if (self) {
+        _currentDate = date;
+    }
+    return self;
+}
+
 - (void) didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
@@ -82,9 +91,11 @@
 
 - (TKCalendarDayTimelineView *) calendarDayTimelineView{
 	if (!_calendarDayTimelineView) {
-		_calendarDayTimelineView = [[TKCalendarDayTimelineView alloc]initWithFrame:self.view.bounds];
+        CGRect bounds = self.view.bounds;
+        bounds.size.height -=220;
+        _calendarDayTimelineView = [[TKCalendarDayTimelineView alloc] initWithFrame:bounds date:_currentDate];
 		_calendarDayTimelineView.delegate = self;
-	}
+ 	}
 	return _calendarDayTimelineView;
 }
 

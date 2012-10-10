@@ -83,6 +83,15 @@
     return self;
 }
 
+- (id)initWithFrame:(CGRect)frame date:(NSDate*)date {
+    if(!(self=[super initWithFrame:frame])) return nil;
+    
+    [self setupCustomInitialisation];
+    _currentDay = date;
+    
+    return self;
+}
+
 // The designated initializer. Override to perform setup that is required before the view is loaded.
 // Only when using xib (interface buildder)
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -100,7 +109,8 @@
 	self.currentDay = nil;
 	
 	[self addSubview:self.topBackground];
-	
+    self.topBackground.frame = CGRectMake(0, 0, self.bounds.size.width, self.topBackground.frame.size.height);
+
 	[self addSubview:self.monthYear];
 	
 	
@@ -194,7 +204,7 @@
 	}
 	
 	NSDateFormatter *format = [[NSDateFormatter alloc]init];
-	[format setDateFormat:@"EEEE  dd MM yyyy"];	
+	[format setDateFormat:@"EEEE  dd.MM.yyyy"];	
 	NSString *displayDate = [format stringFromDate:_currentDay];
 	self.monthYear.text = displayDate;
 	
@@ -352,10 +362,10 @@
 
 - (UILabel *) monthYear{
 	if(monthYear==nil){
-		monthYear = [[UILabel alloc] initWithFrame:CGRectMake(0, 3, 320, 38)];
+		monthYear = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 480, 38)];
 		monthYear.textAlignment = UITextAlignmentCenter;
 		monthYear.backgroundColor = [UIColor clearColor];
-		monthYear.font = [UIFont boldSystemFontOfSize:19.0f];
+		monthYear.font = [UIFont boldSystemFontOfSize:22.0f];
 		monthYear.textColor = [UIColor colorWithRed:59/255. green:73/255. blue:88/255. alpha:1];
 	}
 	return monthYear;
@@ -382,7 +392,7 @@
 		
 		[leftArrow setImage:[UIImage imageNamedTK:@"TapkuLibrary.bundle/Images/calendar/Month Calendar Left Arrow"] forState:0];
 		
-		leftArrow.frame = CGRectMake(0, 3, 48, 38);
+		leftArrow.frame = CGRectMake(0, 5, 48, 38);
 	}
 	return leftArrow;
 }
@@ -391,7 +401,7 @@
 		rightArrow = [UIButton buttonWithType:UIButtonTypeCustom];
 		rightArrow.tag = 1;
 		[rightArrow addTarget:self action:@selector(nextDay:) forControlEvents:UIControlEventTouchUpInside];
-		rightArrow.frame = CGRectMake(320-45, 3, 48, 38);
+		rightArrow.frame = CGRectMake(480-45, 5, 48, 38);
 		
 		
 		
@@ -450,8 +460,7 @@
 
 - (void)setupCustomInitialisation
 {
-	// Initialization code
-	
+	[self setIs24hClock:YES];
 }
 
 #pragma mark -

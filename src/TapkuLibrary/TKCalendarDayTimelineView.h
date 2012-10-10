@@ -70,6 +70,8 @@
 // Reload Day
 - (void)reloadDay;
 
+- (id)initWithFrame:(CGRect)frame date:(NSDate*)date;
+
 @end
 
 @protocol TKCalendarDayTimelineViewDelegate<NSObject>

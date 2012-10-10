@@ -35,7 +35,10 @@
 
 @interface TKCalendarDayViewController : UIViewController <TKCalendarDayTimelineViewDelegate>{
 	TKCalendarDayTimelineView *_calendarDayTimelineView;
+    NSDate* _currentDate;
 }
+
+- (id)initWithDate:(NSDate*)date;
 
 @property (nonatomic, unsafe_unretained) TKCalendarDayTimelineView *calendarDayTimelineView;
 

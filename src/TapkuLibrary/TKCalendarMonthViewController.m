@@ -65,6 +65,7 @@
 	_monthView = [[TKCalendarMonthView alloc] initWithSundayAsFirst:_sundayFirst];
 	_monthView.delegate = self;
 	_monthView.dataSource = self;
+    
 	[self.view addSubview:_monthView];
 	[_monthView reload];
 	
